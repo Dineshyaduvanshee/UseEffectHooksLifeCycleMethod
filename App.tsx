@@ -1,118 +1,48 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import { useEffect, useState } from "react";
+import { Button, Text, View } from "react-native";
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+const App = ()=>{
+  const [count,setCount] = useState(0);
+  const [data,setData] = useState(100);
+  // useEffect(()=>{
+  //   console.warn("do some animation ");
+    
+  // },[count])
+  // useEffect(()=>{
+  //   console.warn("call some api here ");
+    
+  // },[data])
+  return(
+    <View>
+      <Text style={{textAlign:'center',backgroundColor:'#98fb98',fontSize:23}}>Use Effect hook as for life Cycle Methods</Text>
+      <Text style={{textAlign:'center',backgroundColor:'#9acd32',fontSize:20}}>{data} useEffect as ComponentdidUpdate {count}</Text>
+      <Button title='update Counter' onPress={()=>setCount(count+1)}></Button>
+      <Button title='update Data' onPress={()=>setData(data+1)}></Button>
+      <User info={{data,count}}/>
     </View>
-  );
+  )
 }
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+const User = (props)=>{
+  useEffect(()=>{
+    console.warn(props.info.data);
+    console.warn("Run this props when data props is updated");
+    
+  },[props.info.data])
+  useEffect(()=>{
+    console.warn(props.info.count);
+    console.warn("Run this props when count props is updated");
+    
+  },[props.info.count])
+  return(
+    <View>
+      <Text style={{color:'orange',backgroundColor:'purple',fontSize:23,textAlign:'center'}}>
+        Data : {props.info.data}</Text>
+        <Text style={{color:'red',backgroundColor:'cyan',fontSize:23,textAlign:'center'}}>
+        Count : {props.info.count}</Text>
+    </View>
+  )
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
+
+
